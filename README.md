@@ -48,3 +48,9 @@ Directories use append-only **Load more**, 24 articles at a time. Filtering rese
 Quest lists now use normal document scrolling without a height limit. Opening a card near the bottom brings it into view. The quest tab uses the full article width, with requirements and rewards side by side on desktop and stacked on phones. Each card includes accepting, progress and completion dialogue accordions; the separate dialogue tab remains available. Article facts remain on the overview tab. The footer has been removed.
 
 The homepage and article surfaces use a closer brown-and-gold reference treatment, a centered five-column desktop icon directory with centered final rows, and compact dialogue panels. Honeywild content and artwork are retained, along with the fixed sidebar, Load more, acquisition data and browser security restrictions.
+
+## Equipment artwork and illustrated inventories
+
+The wiki now renders the Starter and Rocky inventories as illustrated equipment cards with section shortcuts, rarity, base stats, honey prices and linked material costs. Equipment articles, comparison tables, reward rows and relevant drop tables include artwork. Duplicate opening text is omitted.
+
+`equipment-art.js` maps 16 equipment articles and 2 mobs to transparent WebP model renders. Source models come from `ImportReady/ModelCollection_20260908`; Leafy Belt uses the updated StarterOliveBeltLowPolyV6 and the mud shoulders are rendered separately. The original `.blend` models are unchanged. School Backpack and Heavy Backpack are explicitly labeled untextured model previews because their Roblox-hosted texture assets could not be downloaded without authentication. Images use fixed dimensions and lazy loading; all 18 new renders total approximately 200 KB.
