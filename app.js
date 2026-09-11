@@ -2,7 +2,7 @@ const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const paths={home:'M3 10 12 3l9 7M5 9v12h5v-7h4v7h5V9',bees:'M12 3 20 7.5v9L12 21 4 16.5v-9Z M8 9h8M8 15h8',fields:'M4 20 19 5M5 15C1 6 11 3 21 3c0 10-3 20-12 16',npcs:'M16 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0ZM4 21v-2a8 8 0 0 1 16 0v2',shops:'M3 9h18l-2-6H5ZM5 9v12h14V9M9 21v-7h6v7',items:'m12 3 9 5-9 5-9-5 9-5ZM3 8v9l9 5 9-5V8M12 13v9',mechanics:'M4 4h6v6H4ZM14 14h6v6h-6ZM14 4h6v6h-6ZM4 14h6v6H4Z',search:'M16 16 22 22M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z'};
 const icon=(name)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${paths[name]||paths.items}"/></svg>`;
-const categoryName=id=>CATEGORIES.find(c=>c[0]===id)?.[1]||'Wiki';
+const categoryName=id=>({tools:'Tools',bags:'Bags'}[id]||CATEGORIES.find(c=>c[0]===id)?.[1]||'Wiki');
 const link=id=>{const a=ARTICLES.find(x=>x.id===id);return a?`<a href="#${a.id}">${esc(a.title)}<span aria-hidden="true">↗</span></a>`:''};
 const getId=()=>{try{return decodeURIComponent(location.hash.slice(1)||'home')}catch{return 'not-found'}};
 const status=a=>a.verified?'Configuration checked':'Article in progress';
@@ -33,17 +33,20 @@ function article(a){
  document.querySelectorAll('[data-tab]').forEach(b=>{b.onclick=()=>selectTab(b.dataset.tab);b.onkeydown=e=>{const tabs=[...document.querySelectorAll('[data-tab]')];let n=tabs.indexOf(b);if(e.key==='ArrowRight')n=(n+1)%tabs.length;else if(e.key==='ArrowLeft')n=(n+tabs.length-1)%tabs.length;else if(e.key==='Home')n=0;else if(e.key==='End')n=tabs.length-1;else return;e.preventDefault();tabs[n].focus();selectTab(tabs[n].dataset.tab)}});selectTab('overview');
 }
 function render(){
- const id=getId(),a=ARTICLES.find(a=>a.id===id),category=a?.category||id;
+ const id=getId(),a=ARTICLES.find(a=>a.id===id),category=a?.category||(['tools','bags'].includes(id)?'shops':id);
  document.querySelectorAll('nav a').forEach(el=>{const active=el.dataset.category===category;el.classList.toggle('active',active);if(active)el.setAttribute('aria-current','page');else el.removeAttribute('aria-current')});
  document.body.classList.remove('nav-open');$('#menu').setAttribute('aria-expanded','false');$('#results').hidden=true;$('#search').value='';
  if(a){document.title=`${a.title} · ${WIKI_NAME} Wiki`;article(a)}
  else if(id==='home'){
  document.title=`${WIKI_NAME} Wiki`;
- $('#main').innerHTML=`<section class="welcome"><div class="welcome-copy"><div class="eyebrow">THE ${esc(WIKI_NAME.toUpperCase())} WIKI</div><h1>A little hive.<br>A world to explore.</h1><p class="lead">Your field guide to bees, quests, gathering, and the discoveries in between.</p><div class="welcome-links"><a href="#quest-guide">Start exploring ↗</a><a href="#equipment">Compare equipment ↗</a></div></div><figure class="welcome-art"><img src="assets/honeywild-banner.png" alt="Honeywild concept illustration of bees and a colorful world"><figcaption>Honeywild concept artwork</figcaption></figure></section><div class="section-heading"><h2>Explore the field guide</h2><span>${ARTICLES.length} articles · 6 categories</span></div><div class="category-grid">${CATEGORIES.slice(1).map(([id,title])=>`<a class="category-card" href="#${id}"><div class="category-symbol">${CATEGORY_ART[id]?`<img src="assets/${CATEGORY_ART[id]}" alt="">`:icon(id)}</div><div><h3>${title}</h3><p>${CATEGORY_COPY[id]}</p><small>${ARTICLES.filter(a=>a.category===id).length} ${ARTICLES.filter(a=>a.category===id).length===1?'article':'articles'} <span aria-hidden="true">↗</span></small></div></a>`).join('')}</div><div class="section-heading"><h2>Start with these</h2><span>Quests, resources, and your next upgrade</span></div>${cards(['rocky','equipment','pebbles'].map(id=>ARTICLES.find(a=>a.id===id)))}`;
- }else if(CATEGORIES.some(c=>c[0]===id)){
+ $('#main').innerHTML=`<section class="wiki-directory"><h1>Wiki Articles</h1><div class="icon-grid">${[
+ ['bees','Bees','bee-egg-icon.png'],['fields','Fields','field-icon.png'],['npcs','NPCs','rocky.png'],['quest-guide','Quests','quests.png'],['items','Items','rose-quartz.png'],
+ ['shops','Shops','shop.png'],['tools','Tools','honey-dipper.png'],['bags','Bags','bags.png'],['mechanics','Mechanics','gear.png'],['gathering','Gathering','gathering.png']
+ ].map(([id,label,img])=>`<a class="icon-entry" href="#${id}"><img src="assets/${img}" alt="" width="112" height="112"><span>${label}</span></a>`).join('')}</div></section>`;
+ }else if(CATEGORIES.some(c=>c[0]===id)||['tools','bags'].includes(id)){
  document.title=`${categoryName(id)} · ${WIKI_NAME} Wiki`;
- const list=ARTICLES.filter(a=>a.category===id);
- $('#main').innerHTML=`<div class="breadcrumb"><a href="#home">Home</a><span>/</span><span>${categoryName(id)}</span></div><div class="directory-heading"><div><div class="eyebrow">EXPLORE / ${list.length} ARTICLES</div><h1>${categoryName(id)}</h1><p class="lead">${CATEGORY_COPY[id]}</p></div>${icon(id)}</div>${cards(list)}`;
+ const list=ARTICLES.filter(a=>id==='tools'?a.type==='Tool':id==='bags'?a.type==='Bag':a.category===id);
+ $('#main').innerHTML=`<div class="breadcrumb"><a href="#home">Home</a><span>/</span><span>${categoryName(id)}</span></div><div class="directory-heading"><div><div class="eyebrow">EXPLORE / ${list.length} ARTICLES</div><h1>${categoryName(id)}</h1><p class="lead">${CATEGORY_COPY[id]||(id==='tools'?'Compare gathering patterns, base stats, and tool passives.':'Find the right capacity for your next field trip.')}</p></div>${icon(id)}</div>${cards(list)}`;
  }else{document.title=`Page not found · ${WIKI_NAME}`;$('#main').innerHTML='<div class="eyebrow">UNEXPLORED TERRITORY</div><h1>Page not found.</h1><p class="lead">This entry is not in the field guide yet.</p><a class="button-link" href="#home">Back to the field guide</a>'}
  window.scrollTo(0,0);
 }
@@ -55,4 +58,5 @@ $('#menu').onclick=()=>{const open=document.body.classList.toggle('nav-open');$(
 document.addEventListener('keydown',e=>{if(e.key==='/'&&!['INPUT','TEXTAREA'].includes(document.activeElement.tagName)){e.preventDefault();$('#search').focus()}if(e.key==='Escape'){$('#results').hidden=true;document.body.classList.remove('nav-open');$('#menu').setAttribute('aria-expanded','false')}});
 document.addEventListener('click',e=>{if(!e.target.closest('.search-wrap'))$('#results').hidden=true});
 window.addEventListener('hashchange',()=>{render();$('#main').focus({preventScroll:true})});render();
+
 
