@@ -41,11 +41,13 @@ function article(a){
  if(key==='dialogue')content=`<h2>${esc(a.title)}’s dialogue</h2><p class="prose">Open a quest to read its dialogue. Contains story spoilers.</p>${a.quests.map((q,i)=>`<details class="dialogue"><summary>${i+1}. ${esc(q.title)}</summary>${Object.entries(q.dialogue||{}).map(([phase,lines])=>`<h3>${esc(phase)}</h3>${lines.map(line=>`<p class="prose">“${esc(line)}”</p>`).join('')}`).join('')}</details>`).join('')}`;
  if(key==='notes')content=`<h2>Sources & accuracy</h2><p class="prose">${esc(a.source)}.</p><div class="note">${a.verified?'The listed data was read from the open Studio project on 11 September 2026. This is a configuration check, not confirmation that the published Roblox version has the same values.':'This article is based on saved design notes and project artwork. Some details are still being checked.'}</div><p class="prose">Honeywild is in development. If an in-game value differs, follow the game’s current display.</p>`;
  if(key==='overview'&&a.category==='bees')content=beeOverview(a);
- if(key==='overview')content=discoveryView(a)??content;
+ if(key==='overview')content=planningActions(a)+(planningView(a)??discoveryView(a)??content);
  $('#article-content').innerHTML=content;
  if(a.category==='bees')bindBeeOverview(a);
- bindReference(a,key);
  bindDiscovery(a,key);
+ bindPlanning(a,key);
+ bindSectionLinks(a,key);
+ bindReference(a,key);
  document.querySelectorAll('[data-stock]').forEach(b=>b.onclick=()=>{const target=document.getElementById(b.dataset.stock);target.tabIndex=-1;target.focus({preventScroll:true});target.scrollIntoView({block:'start',behavior:'instant'})});
  document.querySelectorAll('.table-wrap').forEach(el=>{el.tabIndex=0;el.setAttribute('role','region');el.setAttribute('aria-label',el.classList.contains('quest-list')?'Scrollable quest list':(el.querySelector('caption')?.textContent||'Scrollable data table'))});
  document.querySelectorAll('.quest>summary,.dialogue-phase>summary').forEach(summary=>summary.addEventListener('click',()=>{const detail=summary.parentElement;requestAnimationFrame(()=>{if(detail.open&&detail.getBoundingClientRect().bottom>innerHeight-20)detail.scrollIntoView({block:'start',behavior:'instant'})})}));
@@ -77,7 +79,7 @@ function render(){
  if(id==='bees')bindBeeGuide();
  }else{document.title=`Page not found · ${WIKI_NAME}`;$('#main').innerHTML='<div class="eyebrow">UNEXPLORED TERRITORY</div><h1>Page not found.</h1><p class="lead">This entry is not in the field guide yet.</p><a class="button-link" href="#home">Back to the field guide</a>'}
  window.scrollTo(0,0);
- if(a)revealRequestedQuest(a);
+ if(a){revealRequestedQuest(a);revealRequestedSection(a);}
 }
 $('#search').addEventListener('input',e=>{const q=e.target.value.trim().toLowerCase();if(!q){$('#results').hidden=true;return}const matches=SEARCH_INDEX.filter(row=>row.text.includes(q)).map(row=>row.article);$('#results').innerHTML=matches.length?`<div class="search-count">${matches.length} articles found${matches.length>12?' · showing the first 12; refine your search':''}</div>`+matches.slice(0,12).map(a=>`<a href="#${a.id}"><span>${esc(a.title)}</span><small>${categoryName(a.category)}</small></a>`).join(''):'<p>No articles found. Try a bee, item, or NPC name.</p>';$('#results').hidden=false});
 $('#search').addEventListener('keydown',e=>{if(e.key==='Escape')$('#results').hidden=true;if(e.key==='Enter'&&!$('#results').hidden){const a=$('#results a');if(a){a.click();$('#search').blur()}}if(e.key==='ArrowDown'&&!$('#results').hidden){e.preventDefault();$('#results a')?.focus()}});

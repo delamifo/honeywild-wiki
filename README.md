@@ -84,3 +84,17 @@ Validation covers all public article links, retained/removed entries, calculator
 Source and quest results append 12 entries per Load more action. Filters and shortlists are kept only within the current view; no cookies, browser storage or network calls are added. Comparison tables scroll horizontally on narrow screens and have a keyboard-focusable scroll region. Counts remain derived from the available catalog and event window.
 
 The public article count is 177 with this update. Validation includes sort/scaling values, shortlist limits and keyboard focus, filtered methods/rewards, preserved DOM during Load more, direct quest reloads and invalid parameters, query escaping, and phone/tablet layouts.
+
+## Shopping lists, field explorer and section links
+
+`planning-tools.js` adds `#equipment-shopping-list` and `#field-explorer`, bringing the public article count to 179.
+
+The shopping list covers 15 obtainable equipment entries, totals each selected purchase once, and aggregates shared materials. Entered honey/material quantities reduce the displayed outstanding amounts without changing game state. A list may include alternatives for the same equipment slot; it does not simulate a valid equipped loadout. Gear pages include a preselected “Plan this purchase” link.
+
+Selected gear, honey and material quantities stay in JavaScript memory during navigation. A share link encodes only whitelisted equipment IDs, excludes owned quantities, ignores duplicate/unknown IDs, and can restore selected equipment after a reload. Clipboard access occurs only when the visitor clicks Copy list link; a selectable text-field fallback is available. No persistent browser storage, Roblox inventory access, or external API was added.
+
+The field explorer covers 14 playable fields, filters region/resources, and sorts recorded color shares. Eleven fields have recorded flower mixes and three explicitly show unrecorded mixes. Resource percentages are conditional shares of successful field finds. Missing color values are not treated as zero.
+
+Overview headings have section links such as `#feeding-and-energy?section=section-food-effects`. Targets are validated and scroll below the sticky header; unknown sections leave the ordinary page visible. Existing `?quest=N` links take priority when both parameters are present.
+
+Validation covers combined shoulder costs (5,000 honey, 24 Pins, 6 Berry Chitin), inventory subtraction and invalid values, shared-list reload and malformed IDs, clipboard fallback, field ordering/resources, unknown mixes, section and quest links, and mobile layouts. Existing reference, discovery and quest tests also pass.
