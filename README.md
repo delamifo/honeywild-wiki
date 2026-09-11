@@ -42,3 +42,9 @@ Mob percentages are base bonus-roll chances, not marginal per-kill probabilities
 
 Directories use append-only **Load more**, 24 articles at a time. Filtering resets the displayed batch. Previously displayed cards retain their DOM nodes and measured sizes.
 
+
+## Quest layout refresh
+
+Quest lists now use normal document scrolling without a height limit. Opening a card near the bottom brings it into view. The quest tab uses the full article width, with requirements and rewards side by side on desktop and stacked on phones. Each card includes accepting, progress and completion dialogue accordions; the separate dialogue tab remains available. Article facts remain on the overview tab. The footer has been removed.
+
+The homepage and article surfaces use a closer brown-and-gold reference treatment, a centered five-column desktop icon directory with centered final rows, and compact dialogue panels. Honeywild content and artwork are retained, along with the fixed sidebar, Load more, acquisition data and browser security restrictions.
