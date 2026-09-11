@@ -28,6 +28,7 @@ function article(a){
  if(key==='dialogue')content=`<h2>In Rocky’s words</h2><p class="prose">Open a quest to read its dialogue. Contains story spoilers.</p>${a.quests.map((q,i)=>`<details class="dialogue"><summary>${i+1}. ${esc(q.title)}</summary>${Object.entries(q.dialogue).map(([phase,lines])=>`<h3>${esc(phase)}</h3>${lines.map(line=>`<p class="prose">“${esc(line)}”</p>`).join('')}`).join('')}</details>`).join('')}`;
  if(key==='notes')content=`<h2>Sources & accuracy</h2><p class="prose">${esc(a.source)}.</p><div class="note">${a.verified?'The listed data was read from the open Studio project on 11 September 2026. This is a configuration check, not confirmation that the published Roblox version has the same values.':'This article is based on saved design notes and project artwork. Some details are still being checked.'}</div><p class="prose">Honeywild is in development. If an in-game value differs, follow the game’s current display.</p>`;
  $('#article-content').innerHTML=content;
+ document.querySelectorAll('.table-wrap,.quest-list').forEach(el=>{el.tabIndex=0;el.setAttribute('role','region');el.setAttribute('aria-label',el.classList.contains('quest-list')?'Scrollable quest list':'Scrollable equipment table')});
  if($('#open-quests'))$('#open-quests').onclick=()=>{selectTab('quests');$('#tab-quests').focus();$('#tab-quests').scrollIntoView({block:'nearest'})};
  };
  document.querySelectorAll('[data-tab]').forEach(b=>{b.onclick=()=>selectTab(b.dataset.tab);b.onkeydown=e=>{const tabs=[...document.querySelectorAll('[data-tab]')];let n=tabs.indexOf(b);if(e.key==='ArrowRight')n=(n+1)%tabs.length;else if(e.key==='ArrowLeft')n=(n+tabs.length-1)%tabs.length;else if(e.key==='Home')n=0;else if(e.key==='End')n=tabs.length-1;else return;e.preventDefault();tabs[n].focus();selectTab(tabs[n].dataset.tab)}});selectTab('overview');
@@ -39,10 +40,10 @@ function render(){
  if(a){document.title=`${a.title} · ${WIKI_NAME} Wiki`;article(a)}
  else if(id==='home'){
  document.title=`${WIKI_NAME} Wiki`;
- $('#main').innerHTML=`<section class="wiki-directory"><h1>Wiki Articles</h1><div class="icon-grid">${[
+ $('#main').innerHTML=`<section class="home-welcome"><h1>Welcome to the ${esc(WIKI_NAME)} Wiki!</h1><div class="home-wordmark" aria-hidden="true"><img src="assets/gathering.png" alt=""><span>${esc(WIKI_NAME)}</span><small>A little hive. A world to explore.</small></div><p>A guide to ${esc(WIKI_NAME)}, a Roblox bee-collecting adventure. Find information about bees, quests, equipment, items, and the world around your hive.</p><p class="welcome-note">The game is growing, and so is this wiki.</p></section><section class="wiki-directory"><h2>Wiki Articles</h2><div class="icon-grid">${[
  ['bees','Bees','bee-egg-icon.png'],['fields','Fields','field-icon.png'],['npcs','NPCs','rocky.png'],['quest-guide','Quests','quests.png'],['items','Items','rose-quartz.png'],
  ['shops','Shops','shop.png'],['tools','Tools','honey-dipper.png'],['bags','Bags','bags.png'],['mechanics','Mechanics','gear.png'],['gathering','Gathering','gathering.png']
- ].map(([id,label,img])=>`<a class="icon-entry" href="#${id}"><img src="assets/${img}" alt="" width="112" height="112"><span>${label}</span></a>`).join('')}</div></section>`;
+ ].map(([id,label,img])=>`<a class="icon-entry" href="#${id}"><img src="assets/${img}" alt="" width="112" height="112"><span>${label}</span></a>`).join('')}</div></section><section class="similar-pages" aria-label="Useful pages"><h2>Useful pages</h2><div><a href="#quest-guide">Quest guide</a><a href="#equipment">Equipment comparison</a><a href="#rocky">Rocky</a><a href="#gathering">Gathering</a></div></section>`;
  }else if(CATEGORIES.some(c=>c[0]===id)||['tools','bags'].includes(id)){
  document.title=`${categoryName(id)} · ${WIKI_NAME} Wiki`;
  const list=ARTICLES.filter(a=>id==='tools'?a.type==='Tool':id==='bags'?a.type==='Bag':a.category===id);
@@ -60,3 +61,12 @@ document.addEventListener('click',e=>{if(!e.target.closest('.search-wrap'))$('#r
 window.addEventListener('hashchange',()=>{render();$('#main').focus({preventScroll:true})});render();
 
 
+
+// Keep the mobile drawer out of keyboard navigation when closed.
+const mobileSidebar=window.matchMedia('(max-width: 820px)');
+function syncSidebar(){const open=document.body.classList.contains('nav-open');$('#sidebar').inert=mobileSidebar.matches&&!open;$('#sidebar').setAttribute('aria-hidden',String(mobileSidebar.matches&&!open));$('#drawer-backdrop').hidden=!mobileSidebar.matches||!open;}
+new MutationObserver(syncSidebar).observe(document.body,{attributes:true,attributeFilter:['class']});
+mobileSidebar.addEventListener('change',syncSidebar);
+$('#drawer-backdrop').onclick=()=>{document.body.classList.remove('nav-open');$('#menu').setAttribute('aria-expanded','false');$('#menu').focus()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&mobileSidebar.matches)$('#menu').focus();if(e.key==='Tab'&&mobileSidebar.matches&&document.body.classList.contains('nav-open')){const focusable=[$('#menu'),...[...$('#sidebar').querySelectorAll('a,button')].filter(el=>el.getClientRects().length)];const index=focusable.indexOf(document.activeElement);e.preventDefault();const next=(index+(e.shiftKey?-1:1)+focusable.length)%focusable.length;focusable[next].focus()}});
+syncSidebar();
