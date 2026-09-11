@@ -10,7 +10,7 @@ A small, responsive player wiki for Honeywild, a Roblox game in development.
 - `style.css`: colors, typography, desktop and mobile layouts.
 - `assets/`: local artwork used by the wiki.
 
-Change `WIKI_NAME` in `data.js` to rename the wiki. Also update the HTML title, footer, and any branded artwork when changing the game's name.
+Change `WIKI_NAME` in `data.js` to rename the wiki. Also update the HTML title and any branded artwork when changing the game's name.
 
 This site needs no build step. GitHub Pages should publish `main` from `/(root)`. All asset paths are relative, so it works at a repository subpath. The homepage opens by default; articles use links such as `#rocky`.
 
@@ -28,7 +28,7 @@ The Honeywild banner is an existing AI-generated branding concept, not a gamepla
 
 ## Performance and security
 
-Directories initially display 24 articles with Load more, and search returns at most 12 results. The background uses a separate compositing layer; scroll-related blur and image filters are removed. Selected artwork is lossless WebP. Independent sidebar and quest scrolling remain available.
+Directories initially display 24 articles with Load more, and search returns at most 12 results. The background uses a separate compositing layer; scroll-related blur and image filters are removed. Selected artwork is lossless WebP. The sidebar scrolls independently; quest lists use normal document scrolling.
 
 The page has a restrictive Content Security Policy, local scripts/fonts/artwork, escaped dynamic text, validated article identifiers and asset paths, and a no-referrer policy. GitHub Pages enforces HTTPS. There is no login, backend or player-data storage. These controls reduce browser injection and unintended network requests; they are not a guarantee against all security issues. GitHub Pages cannot supply arbitrary response headers through this static repository, so a meta CSP cannot enforce frame-ancestors. Keep GitHub account access and repository permissions secure.
 
@@ -54,3 +54,21 @@ The homepage and article surfaces use a closer brown-and-gold reference treatmen
 The wiki now renders the Starter and Rocky inventories as illustrated equipment cards with section shortcuts, rarity, base stats, honey prices and linked material costs. Equipment articles, comparison tables, reward rows and relevant drop tables include artwork. Duplicate opening text is omitted.
 
 `equipment-art.js` maps 16 equipment articles and 2 mobs to transparent WebP model renders. Source models come from `ImportReady/ModelCollection_20260908`; Leafy Belt uses the updated StarterOliveBeltLowPolyV6 and the mud shoulders are rendered separately. The original `.blend` models are unchanged. School Backpack and Heavy Backpack are explicitly labeled untextured model previews because their Roblox-hosted texture assets could not be downloaded without authentication. Images use fixed dimensions and lazy loading; all 18 new renders total approximately 200 KB.
+
+## Reference library and obtainable content
+
+The public catalog now lists 174 articles at the September 11, 2026 check: 30 standard-roll bees, 41 items with documented acquisition sources, 46 associated ability tokens, and 8 general mechanics/reference pages, alongside equipment, NPCs, fields and mobs. Counts can change when seasonal acquisition windows close.
+
+- `reference-data.js`: selected food effects, field color proportions, seasonal dates, and the owner's confirmation that Amber Field, Granite Mine, Quartz Quarry and Bush Field are playable.
+- `availability.js`: excludes items without documented acquisition routes, testing fields, hidden equipment and bees without a confirmed normal-player source. This is conservative documentation filtering; an excluded item is not proven unobtainable. Charm Bee is excluded pending an acquisition source. Source snapshots remain intact for later review.
+- `reference-content.js`: food/rest, favorite-food ascension, field colors, loot, equipment costs and player-level reward guides; linked item uses; per-bee hatch/reroll odds; enriched token timing and field tables.
+- `reference-ui.js`: local XP and ascension calculators, homepage reference cards and article section shortcuts. Calculators do not store inputs or make network requests.
+- `bee-guide-data.js` and `bee-guide.js`: verified bee statistics, six-level progression, probability tables and ability-card presentation.
+
+Availability uses the game's configured seasonal windows and the reader's browser clock. The four field availability exceptions were explicitly confirmed by the owner. Other data is checked against Studio configuration and relevant handlers, not independently verified against the published Roblox build.
+
+Normal-player acquisition evidence is required for catalog entries. Existing deep links to excluded entries show the normal not-found page; search, categories, probability tables and related links use the filtered catalog. Ant Egg is retained because the free pack actually grants it; its description still identifies it as a placeholder collectible rather than claiming a working hatch result.
+
+Food calculations use 10 XP per ordinary food, 1 current energy restoration, and a shared +15 permanent food energy cap. Favorite-food probabilities use independent rolls with rarity-specific denominators. Individual bee probabilities use the rarity probability divided by its eligible roster size for direct hatching/Jel only.
+
+Validation covers all public article links, retained/removed entries, calculator boundaries, rarity-specific odds, images, Load more, search escaping, CSP, and phone/tablet overflow. The standalone source snapshots are not a live Studio integration.

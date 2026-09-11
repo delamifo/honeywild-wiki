@@ -9,7 +9,7 @@ const status=a=>a.verified?'Configuration checked':'Article in progress';
 const imageFor=a=>a.image||CATEGORY_ART[a.category];
 const number=n=>Number.isFinite(Number(n))?Number(n).toLocaleString('en-US'):'Not specified';
 const assetPath=name=>'assets/'+(ASSET_FILES[name]||name);
-const SEARCH_INDEX=ARTICLES.map(a=>({article:a,text:[a.title,a.type,a.summary,a.body,...(a.quests||[]).map(q=>q.title)].join(' ').toLowerCase()}));
+const SEARCH_INDEX=ARTICLES.map(a=>({article:a,text:[a.title,a.type,a.summary,a.body,...a.sections.flat(),...(a.quests||[]).map(q=>q.title)].join(' ').toLowerCase()}));
 $('#brand-name').textContent=WIKI_NAME.toUpperCase();
 $('.sidebar-note small').textContent='THE '+WIKI_NAME.toUpperCase()+' WIKI';
 
@@ -36,13 +36,14 @@ function article(a){
  document.querySelectorAll('[data-tab]').forEach(b=>{b.setAttribute('aria-selected',b.dataset.tab===key);b.tabIndex=b.dataset.tab===key?0:-1});$('#article-content').setAttribute('aria-labelledby',`tab-${key}`);
  $('.article-grid').classList.toggle('quest-mode',key==='quests'||key==='dialogue');
  let content='';
- if(key==='overview'){content=`${a.body!==a.summary?`<p class="prose">${esc(a.body).replace(/\n/g,'<br>')}</p>`:''}${a.quote?`<blockquote>“${esc(a.quote)}”<cite>— ${esc(a.title)}</cite></blockquote>`:''}${a.id==='equipment'?equipmentTables():a.sections.map(([h,p])=>`<h2>${esc(h)}</h2><p class="prose">${esc(p)}</p>`).join('')}${articleTables(a)}${a.quests?`<button class="button-link" id="open-quests">Explore ${a.quests.length} quests →</button>`:''}`;}
+ if(key==='overview'){content=`${a.body!==a.summary?`<p class="prose">${esc(a.body).replace(/\n/g,'<br>')}</p>`:''}${a.quote?`<blockquote>“${esc(a.quote)}”<cite>— ${esc(a.title)}</cite></blockquote>`:''}${a.id==='equipment'?equipmentTables():a.sections.map(([h,p])=>`<h2>${esc(h)}</h2><p class="prose">${esc(p)}</p>`).join('')}${referenceWidgets(a)}${articleTables(a)}${a.quests?`<button class="button-link" id="open-quests">Explore ${a.quests.length} quests →</button>`:''}`;}
  if(key==='quests')content=quests(a);
  if(key==='dialogue')content=`<h2>${esc(a.title)}’s dialogue</h2><p class="prose">Open a quest to read its dialogue. Contains story spoilers.</p>${a.quests.map((q,i)=>`<details class="dialogue"><summary>${i+1}. ${esc(q.title)}</summary>${Object.entries(q.dialogue||{}).map(([phase,lines])=>`<h3>${esc(phase)}</h3>${lines.map(line=>`<p class="prose">“${esc(line)}”</p>`).join('')}`).join('')}</details>`).join('')}`;
  if(key==='notes')content=`<h2>Sources & accuracy</h2><p class="prose">${esc(a.source)}.</p><div class="note">${a.verified?'The listed data was read from the open Studio project on 11 September 2026. This is a configuration check, not confirmation that the published Roblox version has the same values.':'This article is based on saved design notes and project artwork. Some details are still being checked.'}</div><p class="prose">Honeywild is in development. If an in-game value differs, follow the game’s current display.</p>`;
  if(key==='overview'&&a.category==='bees')content=beeOverview(a);
  $('#article-content').innerHTML=content;
  if(a.category==='bees')bindBeeOverview(a);
+ bindReference(a,key);
  document.querySelectorAll('[data-stock]').forEach(b=>b.onclick=()=>{const target=document.getElementById(b.dataset.stock);target.tabIndex=-1;target.focus({preventScroll:true});target.scrollIntoView({block:'start',behavior:'instant'})});
  document.querySelectorAll('.table-wrap').forEach(el=>{el.tabIndex=0;el.setAttribute('role','region');el.setAttribute('aria-label',el.classList.contains('quest-list')?'Scrollable quest list':(el.querySelector('caption')?.textContent||'Scrollable data table'))});
  document.querySelectorAll('.quest>summary,.dialogue-phase>summary').forEach(summary=>summary.addEventListener('click',()=>{const detail=summary.parentElement;requestAnimationFrame(()=>{if(detail.open&&detail.getBoundingClientRect().bottom>innerHeight-20)detail.scrollIntoView({block:'start',behavior:'instant'})})}));
@@ -60,10 +61,10 @@ function render(){
  if(a){document.title=`${a.title} · ${WIKI_NAME} Wiki`;article(a)}
  else if(id==='home'){
  document.title=`${WIKI_NAME} Wiki`;
- $('#main').innerHTML=`<section class="home-welcome"><h1>Welcome to the ${esc(WIKI_NAME)} Wiki!</h1><div class="home-wordmark" aria-hidden="true"><img src="${assetPath('gathering.png')}" alt=""><span>${esc(WIKI_NAME)}</span><small>A little hive. A world to explore.</small></div><p>A guide to ${esc(WIKI_NAME)}, a Roblox bee-collecting adventure. Find information about bees, quests, equipment, items, and the world around your hive.</p><p class="welcome-note">The game is growing, and so is this wiki.</p></section><section class="wiki-directory"><h2>Wiki Articles</h2><div class="icon-grid">${[
+ $('#main').innerHTML=`<section class="home-welcome"><h1>Welcome to the ${esc(WIKI_NAME)} Wiki!</h1><div class="home-wordmark" aria-hidden="true"><img src="${assetPath('gathering.png')}" alt=""><span>${esc(WIKI_NAME)}</span><small>A little hive. A world to explore.</small></div><p>A guide to ${esc(WIKI_NAME)}, a Roblox bee-collecting adventure. Find information about bees, quests, equipment, items, and the world around your hive.</p><p class="welcome-note">Browse playable content and items with documented acquisition sources.</p></section><section class="wiki-directory"><h2>Wiki Articles</h2><div class="icon-grid">${[
  ['bees','Bees','bee-egg-icon.png'],['fields','Fields','field-icon.png'],['npcs','NPCs','rocky.png'],['quest-guide','Quests','quests.png'],['items','Items','rose-quartz.png'],
  ['shops','Shops','shop.png'],['tools','Tools',EQUIPMENT_ART['flower-brush']],['bags','Bags',EQUIPMENT_ART['bloom-satchel']],['mechanics','Mechanics','gear.png'],['gathering','Gathering','gathering.png'],['mobs','Mobs & Bosses',EQUIPMENT_ART['mob-berrymite']],['abilities','Tokens & Abilities','rose-quartz.png']
- ].map(([id,label,img])=>`<a class="icon-entry" href="#${id}"><img src="${assetPath(img)}" alt="" width="112" height="112"><span>${label}</span></a>`).join('')}</div></section><section class="similar-pages" aria-label="Useful pages"><h2>Useful pages</h2><div><a href="#quest-guide">Quest guide</a><a href="#equipment">Equipment comparison</a><a href="#rocky">Rocky</a><a href="#gathering">Gathering</a></div></section>`;
+ ].map(([id,label,img])=>`<a class="icon-entry" href="#${id}"><img src="${assetPath(img)}" alt="" width="112" height="112"><span>${label}</span></a>`).join('')}</div></section>${guideHub()}<section class="similar-pages" aria-label="Useful pages"><h2>Useful pages</h2><div><a href="#quest-guide">Quest guide</a><a href="#equipment">Equipment comparison</a><a href="#rocky">Rocky</a><a href="#gathering">Gathering</a></div></section>`;
  }else if(CATEGORIES.some(c=>c[0]===id)||['tools','bags'].includes(id)){
  document.title=`${categoryName(id)} · ${WIKI_NAME} Wiki`;
  const list=ARTICLES.filter(a=>id==='tools'?a.type==='Tool':id==='bags'?a.type==='Bag':a.category===id);
