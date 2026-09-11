@@ -72,3 +72,15 @@ Normal-player acquisition evidence is required for catalog entries. Existing dee
 Food calculations use 10 XP per ordinary food, 1 current energy restoration, and a shared +15 permanent food energy cap. Favorite-food probabilities use independent rolls with rarity-specific denominators. Individual bee probabilities use the rarity probability divided by its eligible roster size for direct hatching/Jel only.
 
 Validation covers all public article links, retained/removed entries, calculator boundaries, rarity-specific odds, images, Load more, search escaping, CSP, and phone/tablet overflow. The standalone source snapshots are not a live Studio integration.
+
+## Searchable reference tools
+
+`discovery-tools.js` adds three pages using the already filtered public catalog:
+
+- `#bee-comparison`: compare 30 bees, filter by color/rarity/name, sort selected base statistics, apply levels 1–6, and shortlist up to three bees with their base abilities. Listed amounts and timings are not claims of measured damage or nectar per second.
+- `#item-source-finder`: search 41 obtainable items and their source descriptions, with quest/mob/field/shop/equipment/level/other filters. Results retain the acquisition table's chance and availability qualifications.
+- `#quest-rewards`: filter 109 current quest entries by NPC, item reward, type and objective text. Each result links to the corresponding expanded NPC quest, for example `#rocky?quest=2`. Quest indices are one-based and validated; invalid indices open the normal overview.
+
+Source and quest results append 12 entries per Load more action. Filters and shortlists are kept only within the current view; no cookies, browser storage or network calls are added. Comparison tables scroll horizontally on narrow screens and have a keyboard-focusable scroll region. Counts remain derived from the available catalog and event window.
+
+The public article count is 177 with this update. Validation includes sort/scaling values, shortlist limits and keyboard focus, filtered methods/rewards, preserved DOM during Load more, direct quest reloads and invalid parameters, query escaping, and phone/tablet layouts.
