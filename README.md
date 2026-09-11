@@ -28,6 +28,17 @@ The Honeywild banner is an existing AI-generated branding concept, not a gamepla
 
 ## Performance and security
 
-Directories display 24 articles per page, and search returns at most 12 results. The background uses a separate compositing layer; scroll-related blur and image filters are removed. Selected artwork is lossless WebP. Independent sidebar and quest scrolling remain available.
+Directories initially display 24 articles with Load more, and search returns at most 12 results. The background uses a separate compositing layer; scroll-related blur and image filters are removed. Selected artwork is lossless WebP. Independent sidebar and quest scrolling remain available.
 
 The page has a restrictive Content Security Policy, local scripts/fonts/artwork, escaped dynamic text, validated article identifiers and asset paths, and a no-referrer policy. GitHub Pages enforces HTTPS. There is no login, backend or player-data storage. These controls reduce browser injection and unintended network requests; they are not a guarantee against all security issues. GitHub Pages cannot supply arbitrary response headers through this static repository, so a meta CSP cannot enforce frame-ancestors. Keep GitHub account access and repository permissions secure.
+
+## Shops, obtaining and drops
+
+`acquisition-data.js` contains the selected item-source and equipment configuration; `acquisition.js` builds each shop inventory, item obtaining tables, field-find tables and mob drop tables. The Starter and Rocky shop filters determine equipment stock; hidden hats are excluded. Normal Egg, Jel and Autumn Harvest have separate supply-shop pages. Equipment lives in its own category.
+
+Obtaining entries link confirmed quest rewards, shops, mob drops, field finds, breakable variants, fireflies, equipment passives, level rewards, map pickups and the time-limited free pack. A missing documented source is not proof that an item is unobtainable. Seasonal and development conditions are shown. Boss-specific drops remain unconfirmed.
+
+Mob percentages are base bonus-roll chances, not marginal per-kill probabilities: guaranteed tokens consume capacity first, bonus entries roll in order, and the physical-token cap can suppress later entries. Player Loot Luck and mob level modify rolls; honey scales with mob level. Field-find percentages are conditional on triggering a reward.
+
+Directories use append-only **Load more**, 24 articles at a time. Filtering resets the displayed batch. Previously displayed cards retain their DOM nodes and measured sizes.
+
