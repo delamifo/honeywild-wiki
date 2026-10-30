@@ -1,5 +1,9 @@
 // Original captures from the owner's active Studio scene; no generated scenery.
 const GAME_SCENES={
+ 'good-wasp':{file:'game/good-wasp.jpg',alt:'Good Wasp beside the interaction platform in the actual Studio map.',caption:'Good Wasp · Studio scene, 31 October 2026.'},
+ 'field-quartzquarry':{file:'game/quartz-quarry.jpg',alt:'Quartz Quarry platform, quartz crystals, mine cart and connecting paths.',caption:'Quartz Quarry layout · Studio scene, 31 October 2026. Runtime flowers are not shown.'},
+ 'field-granitemine':{file:'game/granite-mine.jpg',alt:'Granite Mine field platform beside the mine entrance and stone paths.',caption:'Granite Mine layout · Studio scene, 31 October 2026. Runtime flowers are not shown.'},
+ 'field-blackberryfield':{file:'game/blackberry-field.jpg',alt:'Blackberry Field platform beside its large blackberry landmark.',caption:'Blackberry Field layout · Studio scene, 31 October 2026. Runtime flowers are not shown.'},
  'smasher-bear':{file:'game/smasher.jpg',alt:'Smasher Bear standing at the egg-smashing workbench in the active Studio scene.',caption:'Smasher Bear and the smashing workbench · Studio scene, 30 October 2026.'},
  rocky:{file:'game/rocky.jpg',alt:'Rocky and the interaction platform beside the stone arch in Rocky Location.',caption:'Rocky in Rocky Location · Studio scene, 30 October 2026.'},
  'field-amberfield':{file:'game/amber-field.jpg',alt:'Amber Field platform and connecting stone paths in Rocky Location.',caption:'Amber Field layout · Studio scene, 30 October 2026. Runtime flowers are not shown.'}

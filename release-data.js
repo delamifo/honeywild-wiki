@@ -1,5 +1,24 @@
 const WIKI_RELEASES=[
 {
+  "date": "2026-10-31",
+  "kind": "Website update",
+  "title": "More real scene images & the upgrade planner",
+  "changes": [
+    "Added original Studio captures of Good Wasp, Quartz Quarry, Granite Mine and Blackberry Field. Field captures are labeled as layouts without runtime flowers.",
+    "Plan multiple obtainable upgrades with shared prerequisites counted once, including tree-opening requirements.",
+    "Mark restored upgrades and subtract owned honey/materials; keep level, quest and achievement requirements separate from costs.",
+    "Share goal links and open the planner directly from individual upgrades. Excluded branches remain unavailable."
+  ],
+  "links": [
+    "upgrade-planner",
+    "good-wasp",
+    "field-quartzquarry",
+    "field-granitemine",
+    "field-blackberryfield"
+  ]
+},
+
+{
   "date": "2026-10-30",
   "kind": "Partial configuration refresh",
   "title": "Current quests, obtainable upgrade trees & real scene images",

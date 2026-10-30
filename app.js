@@ -41,7 +41,7 @@ function article(a){
  if(key==='dialogue')content=`<h2>${esc(a.title)}’s dialogue</h2><p class="prose">Open a quest to read its dialogue. Contains story spoilers.</p>${a.quests.map((q,i)=>`<details class="dialogue"><summary>${i+1}. ${esc(q.title)}</summary>${Object.entries(q.dialogue||{}).map(([phase,lines])=>`<h3>${esc(phase)}</h3>${lines.map(line=>`<p class="prose">“${esc(line)}”</p>`).join('')}`).join('')}</details>`).join('')}`;
  if(key==='notes')content=`<h2>Sources & accuracy</h2><p class="prose">${esc(a.source)}.</p>${a.verificationNote?`<p class="note">${esc(a.verificationNote)}</p>`:''}<div class="note">${a.verified?'The listed data was read from the open Studio project on '+esc(snapshotDateLabel(a))+'. This is a configuration check, not confirmation that the published Roblox version has the same values.':'This article is based on saved design notes and project artwork. Some details are still being checked.'}</div><p class="prose">Honeywild is in development. If an in-game value differs, follow the game’s current display.</p>`;
  if(key==='overview'&&a.category==='bees')content=beeOverview(a);
- if(key==='overview')content=planningActions(a)+(progressionView(a)??fieldDetailView(a)??updatesView(a)??knowledgeView(a)??planningView(a)??discoveryView(a)??content);
+ if(key==='overview')content=planningActions(a)+(upgradePlannerView(a)??progressionView(a)??fieldDetailView(a)??updatesView(a)??knowledgeView(a)??planningView(a)??discoveryView(a)??content);
  $('#article-content').innerHTML=content;
  if(a.category==='bees')bindBeeOverview(a);
  bindDiscovery(a,key);
@@ -49,6 +49,7 @@ function article(a){
  bindKnowledge(a,key);
  bindCurrentGuide(a,key);
  bindProgression(a,key);
+ bindUpgradePlanner(a,key);
  bindFieldDetail(a,key);
  bindSectionLinks(a,key);
  bindReference(a,key);

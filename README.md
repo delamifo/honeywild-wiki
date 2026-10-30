@@ -149,3 +149,9 @@ Validated exact quest data, upgrade availability, material/dependency links, sea
 ## Approved public release — 31 October 2026
 
 The owner explicitly approved publication of the selected game data and scene images to delamifo/honeywild-wiki. This supersedes the earlier pending-approval notes above. Game-data verification dates remain attached to their actual checks; publication does not imply a new game audit.
+
+## Images and upgrade planner — 31 October 2026
+
+Seven original Studio scene captures now illustrate verified NPCs and playable fields; field captures explicitly omit runtime flowers. The new upgrade-planner route supports multiple goals, unique prerequisite totals, tree-opening gates, restored-node credit, material balances, purchase ordering, and shareable goals. It uses only the 28 reviewed obtainable upgrades. Personal balances and restored selections stay in tab memory, never connect to Roblox, and are omitted from shared links.
+
+Validation: verify-upgrade-planner.cjs covers shared branches, restored closure, cross-tree requirements, cost subtraction, highest requirement targets, additional-node warnings, missing/cyclic dependency rejection, escaped invalid links, reload behavior, seven decoded images, and phone layouts.
