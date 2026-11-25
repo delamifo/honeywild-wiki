@@ -155,3 +155,9 @@ The owner explicitly approved publication of the selected game data and scene im
 Seven original Studio scene captures now illustrate verified NPCs and playable fields; field captures explicitly omit runtime flowers. The new upgrade-planner route supports multiple goals, unique prerequisite totals, tree-opening gates, restored-node credit, material balances, purchase ordering, and shareable goals. It uses only the 28 reviewed obtainable upgrades. Personal balances and restored selections stay in tab memory, never connect to Roblox, and are omitted from shared links.
 
 Validation: verify-upgrade-planner.cjs covers shared branches, restored closure, cross-tree requirements, cost subtraction, highest requirement targets, additional-node warnings, missing/cyclic dependency rejection, escaped invalid links, reload behavior, seven decoded images, and phone layouts.
+
+## Selected systems refresh — 25 November 2026
+
+Added guides for 15 ordinary races, four claimed-hive shelter bonuses and night-time lantern rewards. Race odds use the full 10,000-weight pool; lantern tables distinguish conditional item shares from chances per eligible roll. Refreshed the three obtainable field mobs and their drop tables. These checks used the active Studio server; they do not verify deployment of this build to public Roblox servers. Existing quests, upgrade trees, images and other systems retain their earlier verification dates.
+
+Development-only Amber Canopy fields/mobs, trial fields, unverified Wellkeeper progression and concept equipment remain excluded. The website contains 259 articles, 42 obtainable items and 100 documented quests during the current Autumn event. Local browser checks passed for all article links, search, CSP, mobile layouts, the upgrade planner and the new probability tables.

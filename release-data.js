@@ -1,5 +1,22 @@
 const WIKI_RELEASES=[
 {
+  "date": "2026-11-25",
+  "kind": "Partial configuration refresh",
+  "title": "Races, hive shelters, lantern rewards & mob timers",
+  "changes": [
+    "Added all 15 ordinary race outcomes with exact roll odds, bonuses and penalties.",
+    "Documented the four claimed-shelter bonuses and lantern item probabilities.",
+    "Refreshed the three obtainable field mobs and their drop tables from active Studio configuration.",
+    "Studio configuration checked November 25; published Roblox server version is not verified. Development fields and their mobs remain excluded."
+  ],
+  "links": [
+    "race-transformations",
+    "hive-shelters",
+    "lantern-fireflies",
+    "loot-guide"
+  ]
+},
+{
   "date": "2026-10-31",
   "kind": "Website update",
   "title": "More real scene images & the upgrade planner",
