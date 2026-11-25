@@ -1,4 +1,4 @@
-// Reviewed public catalog; quests checked 30 October and field mobs checked 25 November 2026.
+// Reviewed public catalog; Wellkeeper and field mobs checked 25 November 2026; other quests retain October checks.
 const WIKI_CATALOG={
   "items": [
     {
@@ -5925,6 +5925,365 @@ const WIKI_CATALOG={
         }
       ],
       "DisplayName": "Trailkeeper Bear"
+    },
+    {
+      "Id": "WellkeeperBear",
+      "DisplayName": "Wellkeeper Bear",
+      "NpcTag": "SaharaWellkeeperQuestgiver",
+      "Description": "Keeps watch over the Sahara cistern and guides its ten-stage restoration.",
+      "Location": "Sahara",
+      "quests": [
+        {
+          "npcTag": "SaharaWellkeeperQuestgiver",
+          "sortOrder": 1,
+          "title": "First Course",
+          "type": "linear",
+          "dialogue": {
+            "Progress": [
+              "Finish the task and come back. The next course is waiting."
+            ],
+            "Claim": [
+              "Help me rebuild the cistern. Finish this task, then return."
+            ],
+            "Complete": [
+              "Good work. Watch the cistern change."
+            ]
+          },
+          "rewards": [
+            {
+              "item": "MicroBag",
+              "amount": 1
+            }
+          ],
+          "requirements": [
+            "Collect 100 nectar."
+          ],
+          "id": "wellkeeper_01",
+          "objectives": [
+            {
+              "type": "any",
+              "description": "Collect 100 nectar.",
+              "id": "wellkeeper_01_task",
+              "event": "collect",
+              "target": 100
+            }
+          ],
+          "checkedDate": "2026-11-25"
+        },
+        {
+          "npcTag": "SaharaWellkeeperQuestgiver",
+          "sortOrder": 2,
+          "title": "Second Course",
+          "type": "linear",
+          "dialogue": {
+            "Progress": [
+              "Finish the task and come back. The next course is waiting."
+            ],
+            "Claim": [
+              "Help me rebuild the cistern. Finish this task, then return."
+            ],
+            "Complete": [
+              "Good work. Watch the cistern change."
+            ]
+          },
+          "rewards": [],
+          "requirements": [
+            "Use 1 Micro Bag."
+          ],
+          "id": "wellkeeper_02",
+          "objectives": [
+            {
+              "type": "item",
+              "item": "MicroBag",
+              "id": "wellkeeper_02_task",
+              "target": 1,
+              "event": "item_used",
+              "description": "Use 1 Micro Bag."
+            }
+          ],
+          "checkedDate": "2026-11-25"
+        },
+        {
+          "npcTag": "SaharaWellkeeperQuestgiver",
+          "sortOrder": 3,
+          "title": "Loose Stones",
+          "type": "linear",
+          "dialogue": {
+            "Progress": [
+              "Finish the task and come back. The next course is waiting."
+            ],
+            "Claim": [
+              "Help me rebuild the cistern. Finish this task, then return."
+            ],
+            "Complete": [
+              "Good work. Watch the cistern change."
+            ]
+          },
+          "rewards": [
+            {
+              "item": "MicroBag",
+              "amount": 1
+            }
+          ],
+          "requirements": [
+            "Collect 1 bee ability token."
+          ],
+          "id": "wellkeeper_03",
+          "objectives": [
+            {
+              "type": "token",
+              "description": "Collect 1 bee ability token.",
+              "id": "wellkeeper_03_task",
+              "event": "collect",
+              "target": 1
+            }
+          ],
+          "checkedDate": "2026-11-25"
+        },
+        {
+          "npcTag": "SaharaWellkeeperQuestgiver",
+          "sortOrder": 4,
+          "title": "Higher Walls",
+          "type": "linear",
+          "dialogue": {
+            "Progress": [
+              "Finish the task and come back. The next course is waiting."
+            ],
+            "Claim": [
+              "Help me rebuild the cistern. Finish this task, then return."
+            ],
+            "Complete": [
+              "Good work. Watch the cistern change."
+            ]
+          },
+          "rewards": [],
+          "requirements": [
+            "Use 1 Micro Bag."
+          ],
+          "id": "wellkeeper_04",
+          "objectives": [
+            {
+              "type": "item",
+              "item": "MicroBag",
+              "id": "wellkeeper_04_task",
+              "target": 1,
+              "event": "item_used",
+              "description": "Use 1 Micro Bag."
+            }
+          ],
+          "checkedDate": "2026-11-25"
+        },
+        {
+          "npcTag": "SaharaWellkeeperQuestgiver",
+          "sortOrder": 5,
+          "title": "Clear the Site",
+          "type": "linear",
+          "dialogue": {
+            "Progress": [
+              "Finish the task and come back. The next course is waiting."
+            ],
+            "Claim": [
+              "Help me rebuild the cistern. Finish this task, then return."
+            ],
+            "Complete": [
+              "Good work. Watch the cistern change."
+            ]
+          },
+          "rewards": [
+            {
+              "item": "MicroBag",
+              "amount": 1
+            }
+          ],
+          "requirements": [
+            "Defeat 1 mob."
+          ],
+          "id": "wellkeeper_05",
+          "objectives": [
+            {
+              "type": "mob",
+              "description": "Defeat 1 mob.",
+              "id": "wellkeeper_05_task",
+              "event": "combat_kill",
+              "target": 1
+            }
+          ],
+          "checkedDate": "2026-11-25"
+        },
+        {
+          "npcTag": "SaharaWellkeeperQuestgiver",
+          "sortOrder": 6,
+          "title": "Coping Stones",
+          "type": "linear",
+          "dialogue": {
+            "Progress": [
+              "Finish the task and come back. The next course is waiting."
+            ],
+            "Claim": [
+              "Help me rebuild the cistern. Finish this task, then return."
+            ],
+            "Complete": [
+              "Good work. Watch the cistern change."
+            ]
+          },
+          "rewards": [],
+          "requirements": [
+            "Use 1 Micro Bag."
+          ],
+          "id": "wellkeeper_06",
+          "objectives": [
+            {
+              "type": "item",
+              "item": "MicroBag",
+              "id": "wellkeeper_06_task",
+              "target": 1,
+              "event": "item_used",
+              "description": "Use 1 Micro Bag."
+            }
+          ],
+          "checkedDate": "2026-11-25"
+        },
+        {
+          "npcTag": "SaharaWellkeeperQuestgiver",
+          "sortOrder": 7,
+          "title": "Shaft Survey",
+          "type": "linear",
+          "dialogue": {
+            "Progress": [
+              "Finish the task and come back. The next course is waiting."
+            ],
+            "Claim": [
+              "Help me rebuild the cistern. Finish this task, then return."
+            ],
+            "Complete": [
+              "Good work. Watch the cistern change."
+            ]
+          },
+          "rewards": [
+            {
+              "item": "MicroBag",
+              "amount": 1
+            }
+          ],
+          "requirements": [
+            "Collect 1,000 nectar."
+          ],
+          "id": "wellkeeper_07",
+          "objectives": [
+            {
+              "type": "any",
+              "description": "Collect 1,000 nectar.",
+              "id": "wellkeeper_07_task",
+              "event": "collect",
+              "target": 1000
+            }
+          ],
+          "checkedDate": "2026-11-25"
+        },
+        {
+          "npcTag": "SaharaWellkeeperQuestgiver",
+          "sortOrder": 8,
+          "title": "Lower the Bucket",
+          "type": "linear",
+          "dialogue": {
+            "Progress": [
+              "Finish the task and come back. The next course is waiting."
+            ],
+            "Claim": [
+              "Help me rebuild the cistern. Finish this task, then return."
+            ],
+            "Complete": [
+              "Good work. Watch the cistern change."
+            ]
+          },
+          "rewards": [],
+          "requirements": [
+            "Use 1 Micro Bag."
+          ],
+          "id": "wellkeeper_08",
+          "objectives": [
+            {
+              "type": "item",
+              "item": "MicroBag",
+              "id": "wellkeeper_08_task",
+              "target": 1,
+              "event": "item_used",
+              "description": "Use 1 Micro Bag."
+            }
+          ],
+          "checkedDate": "2026-11-25"
+        },
+        {
+          "npcTag": "SaharaWellkeeperQuestgiver",
+          "sortOrder": 9,
+          "title": "Final Supports",
+          "type": "linear",
+          "dialogue": {
+            "Progress": [
+              "Finish the task and come back. The next course is waiting."
+            ],
+            "Claim": [
+              "Help me rebuild the cistern. Finish this task, then return."
+            ],
+            "Complete": [
+              "Good work. Watch the cistern change."
+            ]
+          },
+          "rewards": [
+            {
+              "item": "MicroBag",
+              "amount": 1
+            }
+          ],
+          "requirements": [
+            "Collect 3 bee ability tokens."
+          ],
+          "id": "wellkeeper_09",
+          "objectives": [
+            {
+              "type": "token",
+              "description": "Collect 3 bee ability tokens.",
+              "id": "wellkeeper_09_task",
+              "event": "collect",
+              "target": 3
+            }
+          ],
+          "checkedDate": "2026-11-25"
+        },
+        {
+          "npcTag": "SaharaWellkeeperQuestgiver",
+          "sortOrder": 10,
+          "title": "The Cistern",
+          "type": "linear",
+          "dialogue": {
+            "Progress": [
+              "Finish the task and come back. The next course is waiting."
+            ],
+            "Claim": [
+              "Help me rebuild the cistern. Finish this task, then return."
+            ],
+            "Complete": [
+              "Good work. Watch the cistern change."
+            ]
+          },
+          "rewards": [],
+          "requirements": [
+            "Use 1 Micro Bag."
+          ],
+          "id": "wellkeeper_10",
+          "objectives": [
+            {
+              "type": "item",
+              "item": "MicroBag",
+              "id": "wellkeeper_10_task",
+              "target": 1,
+              "event": "item_used",
+              "description": "Use 1 Micro Bag."
+            }
+          ],
+          "checkedDate": "2026-11-25"
+        }
+      ]
     }
   ],
   "bees": [

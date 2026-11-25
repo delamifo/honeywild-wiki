@@ -2,6 +2,24 @@ const WIKI_RELEASES=[
 {
   "date": "2026-11-25",
   "kind": "Partial configuration refresh",
+  "title": "Lower Sahara, Wellkeeper Bear & six shop offers",
+  "changes": [
+    "Added lower Sahara access requirements and its travel prompts.",
+    "Added Wellkeeper Bear’s ten sequential cistern quests, their objectives, rewards and dialogue.",
+    "Micro Bag now has an ordinary quest-reward source and documented backpack-conversion use.",
+    "Added six Sahara equipment offers with base stats and temporary prices of 1,000,000 honey each.",
+    "Other bear and minigame placeholders remain excluded. Data checked in Studio; published Roblox build and full unlocked quest/travel playtest are not verified."
+  ],
+  "links": [
+    "sahara",
+    "wellkeeper-bear",
+    "sahara-shop",
+    "item-microbag"
+  ]
+},
+{
+  "date": "2026-11-25",
+  "kind": "Partial configuration refresh",
   "title": "Races, hive shelters, lantern rewards & mob timers",
   "changes": [
     "Added all 15 ordinary race outcomes with exact roll odds, bonuses and penalties.",

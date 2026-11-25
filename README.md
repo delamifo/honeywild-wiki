@@ -161,3 +161,9 @@ Validation: verify-upgrade-planner.cjs covers shared branches, restored closure,
 Added guides for 15 ordinary races, four claimed-hive shelter bonuses and night-time lantern rewards. Race odds use the full 10,000-weight pool; lantern tables distinguish conditional item shares from chances per eligible roll. Refreshed the three obtainable field mobs and their drop tables. These checks used the active Studio server; they do not verify deployment of this build to public Roblox servers. Existing quests, upgrade trees, images and other systems retain their earlier verification dates.
 
 Development-only Amber Canopy fields/mobs, trial fields, unverified Wellkeeper progression and concept equipment remain excluded. The website contains 259 articles, 42 obtainable items and 100 documented quests during the current Autumn event. Local browser checks passed for all article links, search, CSP, mobile layouts, the upgrade planner and the new probability tables.
+
+## Sahara and Wellkeeper — 25 November 2026
+
+Added the lower Sahara location, its Rocky-access travel requirements, six ordinary shop offers and Wellkeeper Bear's ten sequential quests. Micro Bag is now documented through the five quest rewards that supply subsequent objectives. Tool/bag comparisons and equipment costs include the new stock. Every Sahara offer currently costs 1,000,000 honey; prices are explicitly temporary. Gear without a verified image uses a compact card instead of an empty art panel.
+
+Current Studio sources and the ordinary interaction anchor are present; successful unlocked travel, full quest completion/save/rejoin and the published Roblox version are not verified in this read-only audit. Visual-only quest/minigame bears and the inactive Amber Canopy region remain excluded. Catalog: 269 articles, 110 currently active quest entries, 43 items. Local browser checks cover all article links, search, security, phone layouts, shop stock, exact rewards and obtaining links.

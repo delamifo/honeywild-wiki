@@ -11,6 +11,7 @@ CATEGORY_COPY.shops='Visit each shop to see its own inventory, honey prices, and
 CATEGORY_COPY.gear='Compare tools, bags, hats, and wearable gear. Each item links to the shops that sell it.';
 for(const a of ARTICLES)if(a.category==='shops')a.category='gear';
 const shopLists=[
+ {id:'sahara-shop',name:'Sahara Shop',location:'lower Sahara',stock:{tools:['DateStalkBroom','OasisFlowerShears'],bags:['CedarWellCask'],hats:['SaharaMeshVeil'],gear:['Quilted Camp Pads','Oasis Bloom Boots']}},
  {id:'starter-shop',name:'Starter Shop',location:'Starter location',stock:{tools:['FlowerBrush','HoneyRake','TinPollenScooper','NetScooper'],bags:['SchoolBackpack','HoneyBag','HeavyBackpack','BloomSatchel'],hats:['TinfoilHat','SproutGoggles'],gear:['Resin Boots','Left Mud Shoulder','Right Mud Shoulder','Leafy Belt']}},
  {id:'rocky-shop',name:'Rocky Shop',location:'Rocky location',stock:{tools:['TinPollenScooper','LeafCutter'],bags:['HeavyBackpack','BloomSatchel'],hats:['TinfoilHat','SproutGoggles']}}
 ];
